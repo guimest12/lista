@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lista de Convidados</title>
+</head>
+<body>
+
+  <h1>Lista de Convidados</h1>
+  
+  <ul id="guests"></ul>
+  
+  <input id="nameInput" type="text">
+  <button id="addButton">Adicionar Convidado</button>
+  
+  <button id="sortButton">Ordenar Lista</button>
+  
+  <input id="searchInput" type="text">
+  <button id="searchButton">Procurar Convidado</button>
+
+  <input id="countInput" type="text">
+  <button id="countButton">Contar Ocorrências</button>
+
+  <script>
+
+    let guests = [];
+    
+    function addGuest(name) {
+      guests.push(name);
+      render();
+    }
+    
+    function render() {
+      let list = document.getElementById('guests');
+      list.innerHTML = '';
+      for(let guest of guests) {
+        let item = document.createElement('li');
+        item.textContent = guest;
+        list.appendChild(item);
+      }
+    }
+    
+    function sortGuests() {
+      guests.sort();
+      render();
+    }
+    
+    function searchGuest(name) {
+      return guests.includes(name);
+    }
+    
+    function countGuest(name) {
+      let count = 0;
+      for(let guest of guests) {
+        if(guest.includes(name)) count++;
+      }
+      return count;
+    }
+
+    document.getElementById('addButton').onclick = function() {
+      let name = document.getElementById('nameInput').value;
+      addGuest(name);
+    }
+
+    document.getElementById('sortButton').onclick = sortGuests;
+
+    document.getElementById('searchButton').onclick = function() {
+      let name = document.getElementById('searchInput').value;
+      console.log(searchGuest(name));
+    }
+
+    document.getElementById('countButton').onclick = function() {
+      let name = document.getElementById('countInput').value;
+      let count = countGuest(name);
+      console.log(count);
+    }
+
+  </script>
+
+</body>
+</html>
